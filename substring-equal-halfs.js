@@ -2,7 +2,9 @@
   Find length of largest substring whose halves have equal sum
 */
 
-function lengthOfLargestSubstringWithEqualHalvesSum(num) {
+// Pass 1: Consider all substring to find string with eqaul half sum
+// O(n^3)
+function pass1(num) {
   var max = -1
   var arr = num.split('').map(Number);
 
@@ -25,8 +27,33 @@ function lengthOfLargestSubstringWithEqualHalvesSum(num) {
   return max
 }
 
-console.log(lengthOfLargestSubstringWithEqualHalvesSum("142124"))
-// console.log(lengthOfLargestSubstringWithEqualHalvesSum("9430723"))
+// Pass 2: Avoid two loops
+function pass2(num) {
+  var max = -1
+  var arr = num.split('').map(Number);
+
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = i; j <= arr.length; j+=2) {
+        var l = j - i
+        if (l > max) {
+          var midl = l / 2
+          var leftSum = 0
+          var rightSum = 0
+          // Avoid two loops
+          for (var itr = 0; itr < midl; itr++) {
+            leftSum += arr[i+itr]
+            rightSum += arr[i+midl+itr]
+          }
+          if (leftSum == rightSum)
+            max = l
+        }
+    }
+  }
+  return max
+}
+
+console.log(pass2("142124")) // 6
+console.log(pass2("9430723")) // 4
 
 // function substrings(str) {
 //   for (var i = 0; i < str.length; i++) {
