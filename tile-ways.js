@@ -2,6 +2,10 @@
 Find the number of ways the 2x1 tile can be placed on 2xn space
 */
 
+/*
+if tile is placed vertically the remaining space is 2x(n-1)
+if tile is placed horizontally them the we also need to place another tile resulting in 2x(n-2) space which is a subproblem
+*/
 function f(n) {
   if (n == 1)
     return 1
